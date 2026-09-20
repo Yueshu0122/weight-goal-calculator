@@ -4,162 +4,1755 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>减肥目标计算器</title>
+
 <style>
-:root{--bg:#f6f7f9;--card:#fff;--text:#17191c;--muted:#6b7280;--line:#e5e7eb;--accent:#111827;--soft:#f0f2f5}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:var(--text)}
-.wrap{max-width:980px;margin:0 auto;padding:28px 18px 60px}.hero{text-align:center;margin:10px 0 28px}
-h1{font-size:32px;margin:0 0 10px;letter-spacing:-1px}.hero p{color:var(--muted);margin:0;font-size:15px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:16px;box-shadow:0 4px 16px rgba(0,0,0,.035)}
-.inputs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-label{display:block;font-size:13px;font-weight:600;margin-bottom:7px}
-input,select{width:100%;padding:11px 12px;border:1px solid #d7dbe0;border-radius:10px;font-size:15px;background:#fff;color:var(--text);outline:none}
-input:focus,select:focus{border-color:#8b929b;box-shadow:0 0 0 3px #eef0f2}
-.section-title{font-size:18px;font-weight:750;margin:0 0 16px}
-.progress-head{display:flex;justify-content:space-between;align-items:end}.big{font-size:44px;font-weight:800;letter-spacing:-2px}.small{color:var(--muted);font-size:13px}
-.bar{height:14px;background:#eceef1;border-radius:99px;overflow:hidden;margin:15px 0 12px}.fill{height:100%;width:0;background:#111827;border-radius:99px;transition:.25s}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{background:var(--soft);border-radius:13px;padding:14px}.stat .v{font-size:23px;font-weight:750;margin-top:5px}.stat .k{font-size:12px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.metric h3{margin:0 0 8px;font-size:17px}.value{font-size:30px;font-weight:800}.sub{color:var(--muted);font-size:13px;line-height:1.6;margin-top:6px}
-.formula{background:#f8f9fa;border:1px dashed #d8dce1;padding:10px 12px;border-radius:9px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;margin-top:10px;overflow:auto}
-.note{font-size:12px;color:var(--muted);line-height:1.65}.tag{display:inline-block;background:#eef0f2;border-radius:99px;padding:4px 9px;font-size:11px;margin-left:6px}
-.footer{text-align:center;color:#8a9098;font-size:12px;line-height:1.7;margin-top:20px}
-@media(max-width:700px){.inputs,.stats,.grid{grid-template-columns:1fr}.wrap{padding:22px 14px 45px}h1{font-size:28px}.big{font-size:38px}}
+:root{
+  --bg:#f6f7f9;
+  --card:#fff;
+  --text:#17191c;
+  --muted:#6b7280;
+  --line:#e5e7eb;
+  --accent:#111827;
+  --soft:#f0f2f5;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:var(--bg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  color:var(--text)
+}
+
+.wrap{
+  max-width:980px;
+  margin:0 auto;
+  padding:28px 18px 60px
+}
+
+.hero{
+  text-align:center;
+  margin:10px 0 28px
+}
+
+h1{
+  font-size:32px;
+  margin:0 0 10px;
+  letter-spacing:-1px
+}
+
+.hero p{
+  color:var(--muted);
+  margin:0;
+  font-size:15px
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:16px;
+  box-shadow:0 4px 16px rgba(0,0,0,.035)
+}
+
+.inputs{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px
+}
+
+label{
+  display:block;
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:7px
+}
+
+input,select{
+  width:100%;
+  padding:11px 12px;
+  border:1px solid #d7dbe0;
+  border-radius:10px;
+  font-size:15px;
+  background:#fff;
+  color:var(--text);
+  outline:none
+}
+
+input:focus,select:focus{
+  border-color:#8b929b;
+  box-shadow:0 0 0 3px #eef0f2
+}
+
+.section-title{
+  font-size:18px;
+  font-weight:750;
+  margin:0 0 16px
+}
+
+.progress-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end
+}
+
+.big{
+  font-size:44px;
+  font-weight:800;
+  letter-spacing:-2px
+}
+
+.small{
+  color:var(--muted);
+  font-size:13px
+}
+
+.bar{
+  height:14px;
+  background:#eceef1;
+  border-radius:99px;
+  overflow:hidden;
+  margin:15px 0 12px
+}
+
+.fill{
+  height:100%;
+  width:0;
+  background:#111827;
+  border-radius:99px;
+  transition:.25s
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px
+}
+
+.stat{
+  background:var(--soft);
+  border-radius:13px;
+  padding:14px
+}
+
+.stat .v{
+  font-size:23px;
+  font-weight:750;
+  margin-top:5px
+}
+
+.stat .k{
+  font-size:12px;
+  color:var(--muted)
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px
+}
+
+.metric h3{
+  margin:0 0 8px;
+  font-size:17px
+}
+
+.value{
+  font-size:30px;
+  font-weight:800
+}
+
+.sub{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+  margin-top:6px
+}
+
+.formula{
+  background:#f8f9fa;
+  border:1px dashed #d8dce1;
+  padding:10px 12px;
+  border-radius:9px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:12px;
+  margin-top:10px;
+  overflow:auto
+}
+
+.note{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.65
+}
+
+.tag{
+  display:inline-block;
+  background:#eef0f2;
+  border-radius:99px;
+  padding:4px 9px;
+  font-size:11px;
+  margin-left:6px
+}
+
+.footer{
+  text-align:center;
+  color:#8a9098;
+  font-size:12px;
+  line-height:1.7;
+  margin-top:20px
+}
+
+
+/* =========================
+   历史曲线
+   ========================= */
+
+.chart-wrap{
+  position:relative;
+  width:100%;
+  height:300px;
+  margin-top:8px
+}
+
+#weightChart{
+  width:100%;
+  height:100%;
+  display:block;
+  overflow:visible
+}
+
+.chart-empty{
+  height:260px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  background:#f8f9fa;
+  border-radius:12px
+}
+
+.chart-info{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px
+}
+
+.chart-info .title{
+  font-size:18px;
+  font-weight:750
+}
+
+.chart-info .count{
+  font-size:12px;
+  color:var(--muted)
+}
+
+.chart-legend{
+  display:flex;
+  gap:18px;
+  margin-top:10px;
+  font-size:12px;
+  color:var(--muted)
+}
+
+.legend-item{
+  display:flex;
+  align-items:center;
+  gap:6px
+}
+
+.legend-line{
+  width:20px;
+  height:3px;
+  background:#111827;
+  border-radius:10px
+}
+
+.legend-target{
+  width:20px;
+  border-top:2px dashed #9ca3af
+}
+
+.chart-axis{
+  font-size:11px;
+  fill:#9ca3af
+}
+
+.chart-grid{
+  stroke:#e5e7eb;
+  stroke-width:1
+}
+
+.chart-line{
+  fill:none;
+  stroke:#111827;
+  stroke-width:3;
+  stroke-linecap:round;
+  stroke-linejoin:round
+}
+
+.chart-dot{
+  fill:#fff;
+  stroke:#111827;
+  stroke-width:2
+}
+
+.chart-target{
+  stroke:#9ca3af;
+  stroke-width:1.5;
+  stroke-dasharray:5 5
+}
+
+
+/* 手机 */
+
+@media(max-width:700px){
+
+  .inputs,
+  .stats,
+  .grid{
+    grid-template-columns:1fr
+  }
+
+  .wrap{
+    padding:22px 14px 45px
+  }
+
+  h1{
+    font-size:28px
+  }
+
+  .big{
+    font-size:38px
+  }
+
+  .chart-wrap{
+    height:260px
+  }
+
+}
 </style>
 </head>
+
 <body>
+
 <div class="wrap">
+
   <div class="hero">
     <h1>减肥目标计算器</h1>
     <p>不只看“瘦了多少”，把你的减重过程转换成几个直观的健康指标。</p>
   </div>
 
+
+  <!-- 输入 -->
+
   <div class="card">
-    <div class="section-title">输入你的数据</div>
+
+    <div class="section-title">
+      输入你的数据
+    </div>
+
     <div class="inputs">
-      <div><label>性别</label><select id="sex"><option value="male">男性</option><option value="female">女性</option></select></div>
-      <div><label>年龄（岁）</label><input id="age" type="number" value="26" min="14" max="100"></div>
-      <div><label>身高（cm）</label><input id="height" type="number" value="180" min="100" max="230"></div>
-      <div><label>起始体重（kg）</label><input id="start" type="number" value="76" step="0.1"></div>
-      <div><label>当前体重（kg）</label><input id="current" type="number" value="71" step="0.1"></div>
-      <div><label>目标体重（kg）</label><input id="target" type="number" value="68" step="0.1"></div>
-      <div><label>腰围（cm，可选）</label><input id="waist" type="number" placeholder="例如 80" step="0.1"></div>
-      <div><label>活动水平</label>
-        <select id="activity">
-          <option value="1.2">久坐：很少运动</option>
-          <option value="1.375">轻度：每周运动1–3次</option>
-          <option value="1.55" selected>中度：每周运动3–5次</option>
-          <option value="1.725">高度：每周运动6–7次</option>
-          <option value="1.9">非常高：高强度训练/体力劳动</option>
+
+      <div>
+        <label>性别</label>
+        <select id="sex">
+          <option value="male">男性</option>
+          <option value="female">女性</option>
         </select>
       </div>
+
+      <div>
+        <label>年龄（岁）</label>
+        <input id="age" type="number" value="26" min="14" max="100">
+      </div>
+
+      <div>
+        <label>身高（cm）</label>
+        <input id="height" type="number" value="180" min="100" max="230">
+      </div>
+
+      <div>
+        <label>起始体重（kg）</label>
+        <input id="start" type="number" value="76" step="0.1">
+      </div>
+
+      <div>
+        <label>当前体重（kg）</label>
+        <input id="current" type="number" value="71" step="0.1">
+      </div>
+
+      <div>
+        <label>目标体重（kg）</label>
+        <input id="target" type="number" value="68" step="0.1">
+      </div>
+
+      <div>
+        <label>腰围（cm，可选）</label>
+        <input id="waist" type="number" placeholder="例如 80" step="0.1">
+      </div>
+
+      <div>
+        <label>活动水平</label>
+
+        <select id="activity">
+
+          <option value="1.2">
+            久坐：很少运动
+          </option>
+
+          <option value="1.375">
+            轻度：每周运动1–3次
+          </option>
+
+          <option value="1.55" selected>
+            中度：每周运动3–5次
+          </option>
+
+          <option value="1.725">
+            高度：每周运动6–7次
+          </option>
+
+          <option value="1.9">
+            非常高：高强度训练/体力劳动
+          </option>
+
+        </select>
+
+      </div>
+
     </div>
+
   </div>
 
+
+  <!-- 进度 -->
+
   <div class="card">
+
     <div class="progress-head">
-      <div><div class="small">减肥目标完成度</div><div class="big" id="progress">62.5%</div></div>
-      <div class="small" id="remaining">还差 3.0 kg</div>
+
+      <div>
+
+        <div class="small">
+          减肥目标完成度
+        </div>
+
+        <div class="big" id="progress">
+          62.5%
+        </div>
+
+      </div>
+
+      <div class="small" id="remaining">
+        还差 3.0 kg
+      </div>
+
     </div>
-    <div class="bar"><div class="fill" id="fill"></div></div>
+
+    <div class="bar">
+      <div class="fill" id="fill"></div>
+    </div>
+
     <div class="stats">
-      <div class="stat"><div class="k">起始体重</div><div class="v" id="s1">76 kg</div></div>
-      <div class="stat"><div class="k">已减</div><div class="v" id="s2">5 kg</div></div>
-      <div class="stat"><div class="k">目标体重</div><div class="v" id="s3">68 kg</div></div>
+
+      <div class="stat">
+        <div class="k">起始体重</div>
+        <div class="v" id="s1">76 kg</div>
+      </div>
+
+      <div class="stat">
+        <div class="k">已减</div>
+        <div class="v" id="s2">5 kg</div>
+      </div>
+
+      <div class="stat">
+        <div class="k">目标体重</div>
+        <div class="v" id="s3">68 kg</div>
+      </div>
+
     </div>
+
   </div>
+
+
+  <!-- 历史曲线 -->
+
+  <div class="card">
+
+    <div class="chart-info">
+
+      <div class="title">
+        体重变化
+      </div>
+
+      <div class="count" id="historyCount">
+        最近一年 · 0 条记录
+      </div>
+
+    </div>
+
+    <div id="chartContainer">
+
+      <div class="chart-empty">
+        修改当前体重后，这里会自动记录你的体重变化。
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- 指标 -->
 
   <div class="grid">
-    <div class="card metric">
-      <h3>① BMI 身体质量指数 <span class="tag">体重/身高</span></h3>
-      <div class="value" id="bmiNow">21.9</div>
-      <div class="sub" id="bmiText">起始 23.5 → 当前 21.9 → 目标 21.0</div>
-      <div class="formula">BMI = 体重(kg) ÷ 身高²(m²)</div>
-      <p class="note">BMI 是筛查体重状态的指标，不等于体脂率，也不能单独判断一个人的健康状况。成人常用参考范围为 18.5–24.9。</p>
-    </div>
+
 
     <div class="card metric">
-      <h3>② 体重下降百分比 <span class="tag">减了多少</span></h3>
-      <div class="value" id="lossPct">6.6%</div>
-      <div class="sub" id="lossText">距离目标共需要下降 10.5%</div>
-      <div class="formula">下降比例 = (起始体重 − 当前体重) ÷ 起始体重 × 100%</div>
-      <p class="note">它比“减了几公斤”更能反映相对于你原始体重的变化幅度。</p>
+
+      <h3>
+        ① BMI 身体质量指数
+        <span class="tag">体重/身高</span>
+      </h3>
+
+      <div class="value" id="bmiNow">
+        21.9
+      </div>
+
+      <div class="sub" id="bmiText">
+        起始 23.5 → 当前 21.9 → 目标 21.0
+      </div>
+
+      <div class="formula">
+        BMI = 体重(kg) ÷ 身高²(m²)
+      </div>
+
+      <p class="note">
+        BMI 是筛查体重状态的指标，不等于体脂率，也不能单独判断一个人的健康状况。成人常用参考范围为 18.5–24.9。
+      </p>
+
     </div>
 
-    <div class="card metric">
-      <h3>③ 健康 BMI 对应体重 <span class="tag">参考范围</span></h3>
-      <div class="value" id="range">59.9–80.7 kg</div>
-      <div class="sub">按照 BMI 18.5–24.9 反推的体重范围</div>
-      <div class="formula">体重 = BMI × 身高²</div>
-      <p class="note">这是统计学上的成人 BMI 参考范围，不代表每个人都应该追求范围中的某一个体重。</p>
-    </div>
 
     <div class="card metric">
-      <h3>④ 基础代谢 BMR <span class="tag">静息消耗</span></h3>
-      <div class="value" id="bmr">1,675 kcal/天</div>
-      <div class="sub" id="bmrText">目标体重时约 1,645 kcal/天</div>
-      <div class="formula">Mifflin-St Jeor：男 = 10W + 6.25H − 5A + 5；女 = 10W + 6.25H − 5A − 161</div>
-      <p class="note">BMR 是估算的基础代谢，不是你一天实际能消耗的全部热量。</p>
+
+      <h3>
+        ② 体重下降百分比
+        <span class="tag">减了多少</span>
+      </h3>
+
+      <div class="value" id="lossPct">
+        6.6%
+      </div>
+
+      <div class="sub" id="lossText">
+        距离目标共需要下降 10.5%
+      </div>
+
+      <div class="formula">
+        下降比例 = (起始体重 − 当前体重) ÷ 起始体重 × 100%
+      </div>
+
+      <p class="note">
+        它比“减了几公斤”更能反映相对于你原始体重的变化幅度。
+      </p>
+
     </div>
 
-    <div class="card metric">
-      <h3>⑤ 每日总消耗 TDEE <span class="tag">维持体重</span></h3>
-      <div class="value" id="tdee">2,596 kcal/天</div>
-      <div class="sub" id="tdeeText">如果活动水平保持不变，这是维持当前体重的粗略热量估计。</div>
-      <div class="formula">TDEE ≈ BMR × 活动系数</div>
-      <p class="note">实际消耗会受步数、训练、肌肉量、饮食和个体差异影响，因此只适合作为估算。</p>
-    </div>
 
     <div class="card metric">
-      <h3>⑥ 腰高比 WHtR <span class="tag">需要腰围</span></h3>
-      <div class="value" id="wht">—</div>
-      <div class="sub" id="whtText">输入腰围后计算：腰围 ÷ 身高。</div>
-      <div class="formula">WHtR = 腰围(cm) ÷ 身高(cm)</div>
-      <p class="note">腰高比可以帮助观察腹部脂肪分布。它与 BMI 关注的维度不同，因此两者结合比只看体重更有信息量。</p>
+
+      <h3>
+        ③ 健康 BMI 对应体重
+        <span class="tag">参考范围</span>
+      </h3>
+
+      <div class="value" id="range">
+        59.9–80.7 kg
+      </div>
+
+      <div class="sub">
+        按照 BMI 18.5–24.9 反推的体重范围
+      </div>
+
+      <div class="formula">
+        体重 = BMI × 身高²
+      </div>
+
+      <p class="note">
+        这是统计学上的成人 BMI 参考范围，不代表每个人都应该追求范围中的某一个体重。
+      </p>
+
     </div>
+
+
+    <div class="card metric">
+
+      <h3>
+        ④ 基础代谢 BMR
+        <span class="tag">静息消耗</span>
+      </h3>
+
+      <div class="value" id="bmr">
+        1,675 kcal/天
+      </div>
+
+      <div class="sub" id="bmrText">
+        目标体重时约 1,645 kcal/天
+      </div>
+
+      <div class="formula">
+        Mifflin-St Jeor：男 = 10W + 6.25H − 5A + 5；女 = 10W + 6.25H − 5A − 161
+      </div>
+
+      <p class="note">
+        BMR 是估算的基础代谢，不是你一天实际能消耗的全部热量。
+      </p>
+
+    </div>
+
+
+    <div class="card metric">
+
+      <h3>
+        ⑤ 每日总消耗 TDEE
+        <span class="tag">维持体重</span>
+      </h3>
+
+      <div class="value" id="tdee">
+        2,596 kcal/天
+      </div>
+
+      <div class="sub" id="tdeeText">
+        如果活动水平保持不变，这是维持当前体重的粗略热量估计。
+      </div>
+
+      <div class="formula">
+        TDEE ≈ BMR × 活动系数
+      </div>
+
+      <p class="note">
+        实际消耗会受步数、训练、肌肉量、饮食和个体差异影响，因此只适合作为估算。
+      </p>
+
+    </div>
+
+
+    <div class="card metric">
+
+      <h3>
+        ⑥ 腰高比 WHtR
+        <span class="tag">需要腰围</span>
+      </h3>
+
+      <div class="value" id="wht">
+        —
+      </div>
+
+      <div class="sub" id="whtText">
+        输入腰围后计算：腰围 ÷ 身高。
+      </div>
+
+      <div class="formula">
+        WHtR = 腰围(cm) ÷ 身高(cm)
+      </div>
+
+      <p class="note">
+        腰高比可以帮助观察腹部脂肪分布。它与 BMI 关注的维度不同，因此两者结合比只看体重更有信息量。
+      </p>
+
+    </div>
+
   </div>
+
+
+  <!-- 说明 -->
 
   <div class="card">
-    <div class="section-title">怎么看这些数字？</div>
+
+    <div class="section-title">
+      怎么看这些数字？
+    </div>
+
     <p class="note">
-      <b>减肥进度</b>回答“我的目标完成了多少”；<b>BMI</b>回答“体重相对于身高处于什么水平”；
-      <b>体重下降百分比</b>回答“相对于起点，我改变了多少”；<b>BMR/TDEE</b>帮助理解每天大概消耗多少能量；
+      <b>减肥进度</b>回答“我的目标完成了多少”；
+      <b>BMI</b>回答“体重相对于身高处于什么水平”；
+      <b>体重下降百分比</b>回答“相对于起点，我改变了多少”；
+      <b>BMR/TDEE</b>帮助理解每天大概消耗多少能量；
       <b>腰高比</b>则补充腹部脂肪分布的信息。
     </p>
-    <p class="note">注意：这些都是基于输入数据的估算或筛查指标，不能替代医生对血压、血糖、血脂、体脂率或整体健康状况的评估。</p>
+
+    <p class="note">
+      注意：这些都是基于输入数据的估算或筛查指标，不能替代医生对血压、血糖、血脂、体脂率或整体健康状况的评估。
+    </p>
+
   </div>
 
-  <div class="footer">本计算器仅用于健康教育与自我记录，不构成医疗建议。</div>
+
+  <div class="footer">
+    本计算器仅用于健康教育与自我记录，不构成医疗建议。
+  </div>
+
 </div>
 
+
 <script>
-const $=id=>document.getElementById(id);
-const n=id=>parseFloat($(id).value);
-const fmt=(x,d=1)=>Number.isFinite(x)?x.toFixed(d):"—";
-function calc(){
-  const sex=$("sex").value, age=n("age"), h=n("height"), start=n("start"), cur=n("current"), target=n("target"), waist=n("waist"), act=n("activity");
-  if(!(h>0&&start>0&&cur>0&&target>0)) return;
-  const hm=h/100, bmi=x=>x/(hm*hm);
-  let p=(start-cur)/(start-target); p=Math.max(0,Math.min(1,p));
-  $("progress").textContent=fmt(p*100,1)+"%"; $("fill").style.width=(p*100)+"%";
-  $("remaining").textContent=cur>target?`还差 ${fmt(cur-target,1)} kg`:cur===target?"已达到目标":"超过目标 "+fmt(target-cur,1)+" kg";
-  $("s1").textContent=fmt(start,1)+" kg"; $("s2").textContent=fmt(start-cur,1)+" kg"; $("s3").textContent=fmt(target,1)+" kg";
-  $("bmiNow").textContent=fmt(bmi(cur),1);
-  $("bmiText").textContent=`起始 ${fmt(bmi(start),1)} → 当前 ${fmt(bmi(cur),1)} → 目标 ${fmt(bmi(target),1)}`;
-  const loss=(start-cur)/start*100, targetLoss=(start-target)/start*100;
-  $("lossPct").textContent=fmt(loss,1)+"%"; $("lossText").textContent=`距离目标共需要下降 ${fmt(targetLoss,1)}%`;
-  $("range").textContent=fmt(18.5*hm*hm,1)+"–"+fmt(24.9*hm*hm,1)+" kg";
-  if(age>0){
-    const bmr=sex==="male"?10*cur+6.25*h-5*age+5:10*cur+6.25*h-5*age-161;
-    const targetBmr=sex==="male"?10*target+6.25*h-5*age+5:10*target+6.25*h-5*age-161;
-    $("bmr").textContent=Math.round(bmr).toLocaleString()+" kcal/天";
-    $("bmrText").textContent=`目标体重时约 ${Math.round(targetBmr).toLocaleString()} kcal/天`;
-    $("tdee").textContent=Math.round(bmr*act).toLocaleString()+" kcal/天";
-  }
-  if(waist>0){const r=waist/h;$("wht").textContent=fmt(r,2);$("whtText").textContent=`${waist} cm ÷ ${h} cm = ${fmt(r,2)}`;}
-  else{$("wht").textContent="—";$("whtText").textContent="输入腰围后计算：腰围 ÷ 身高。";}
+
+/* =========================================================
+   基础工具
+   ========================================================= */
+
+const $ = id => document.getElementById(id);
+
+const n = id =>
+  parseFloat($(id).value);
+
+const fmt = (x,d=1) =>
+  Number.isFinite(x)
+    ? x.toFixed(d)
+    : "—";
+
+
+/* =========================================================
+   localStorage
+   ========================================================= */
+
+const STORAGE_KEY = "weightCalculatorData";
+
+const HISTORY_KEY = "weightCalculatorHistory";
+
+
+/* =========================================================
+   保存当前输入
+   ========================================================= */
+
+function saveData(){
+
+  const data = {
+
+    sex: $("sex").value,
+
+    age: $("age").value,
+
+    height: $("height").value,
+
+    start: $("start").value,
+
+    current: $("current").value,
+
+    target: $("target").value,
+
+    waist: $("waist").value,
+
+    activity: $("activity").value
+
+  };
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(data)
+  );
+
 }
-document.querySelectorAll("input,select").forEach(e=>e.addEventListener("input",calc));
+
+
+/* =========================================================
+   恢复当前输入
+   ========================================================= */
+
+function loadData(){
+
+  try{
+
+    const saved =
+      localStorage.getItem(STORAGE_KEY);
+
+    if(!saved)
+      return;
+
+    const data =
+      JSON.parse(saved);
+
+
+    if(data.sex !== undefined)
+      $("sex").value = data.sex;
+
+    if(data.age !== undefined)
+      $("age").value = data.age;
+
+    if(data.height !== undefined)
+      $("height").value = data.height;
+
+    if(data.start !== undefined)
+      $("start").value = data.start;
+
+    if(data.current !== undefined)
+      $("current").value = data.current;
+
+    if(data.target !== undefined)
+      $("target").value = data.target;
+
+    if(data.waist !== undefined)
+      $("waist").value = data.waist;
+
+    if(data.activity !== undefined)
+      $("activity").value = data.activity;
+
+  }catch(error){
+
+    console.warn(
+      "读取本地数据失败：",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   历史记录
+   ========================================================= */
+
+/*
+ * 获取历史记录
+ */
+function getHistory(){
+
+  try{
+
+    const saved =
+      localStorage.getItem(HISTORY_KEY);
+
+    if(!saved)
+      return [];
+
+    const history =
+      JSON.parse(saved);
+
+    return Array.isArray(history)
+      ? history
+      : [];
+
+  }catch(error){
+
+    console.warn(
+      "读取历史记录失败：",
+      error
+    );
+
+    return [];
+
+  }
+
+}
+
+
+/*
+ * 保存历史记录
+ */
+function saveHistory(history){
+
+  localStorage.setItem(
+    HISTORY_KEY,
+    JSON.stringify(history)
+  );
+
+}
+
+
+/*
+ * 获取今天的日期
+ *
+ * 使用本地日期，而不是 UTC。
+ *
+ * 例如：
+ * 2026-09-20
+ */
+function getToday(){
+
+  const now = new Date();
+
+  const year =
+    now.getFullYear();
+
+  const month =
+    String(now.getMonth()+1)
+      .padStart(2,"0");
+
+  const day =
+    String(now.getDate())
+      .padStart(2,"0");
+
+  return `${year}-${month}-${day}`;
+
+}
+
+
+/*
+ * 记录当前体重
+ *
+ * 同一天：
+ * 覆盖之前的数据
+ *
+ * 不同日期：
+ * 新增一条
+ */
+function recordWeight(){
+
+  const current =
+    n("current");
+
+  if(!Number.isFinite(current) || current <= 0)
+    return;
+
+
+  const today =
+    getToday();
+
+
+  let history =
+    getHistory();
+
+
+  /*
+   * 找到今天的记录
+   */
+  const existingIndex =
+    history.findIndex(
+      item => item.date === today
+    );
+
+
+  const record = {
+
+    date: today,
+
+    weight: current
+
+  };
+
+
+  /*
+   * 今天已经记录过
+   * → 覆盖
+   */
+  if(existingIndex !== -1){
+
+    history[existingIndex] =
+      record;
+
+  }
+
+  /*
+   * 今天第一次记录
+   * → 新增
+   */
+  else{
+
+    history.push(record);
+
+  }
+
+
+  /*
+   * 删除超过一年的数据
+   */
+  const cutoff =
+    new Date();
+
+  cutoff.setDate(
+    cutoff.getDate() - 365
+  );
+
+
+  const cutoffString =
+    `${cutoff.getFullYear()}-` +
+    `${String(cutoff.getMonth()+1).padStart(2,"0")}-` +
+    `${String(cutoff.getDate()).padStart(2,"0")}`;
+
+
+  history =
+    history.filter(
+      item => item.date >= cutoffString
+    );
+
+
+  /*
+   * 按日期排序
+   */
+  history.sort(
+    (a,b) =>
+      a.date.localeCompare(b.date)
+  );
+
+
+  saveHistory(history);
+
+}
+
+
+/* =========================================================
+   历史曲线
+   ========================================================= */
+
+function renderChart(){
+
+  const container =
+    $("chartContainer");
+
+  const history =
+    getHistory();
+
+
+  $("historyCount").textContent =
+    `最近一年 · ${history.length} 条记录`;
+
+
+  /*
+   * 没有数据
+   */
+  if(history.length === 0){
+
+    container.innerHTML = `
+      <div class="chart-empty">
+        修改当前体重后，这里会自动记录你的体重变化。
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  /*
+   * 数据只有一条时
+   */
+  if(history.length === 1){
+
+    container.innerHTML = `
+      <div class="chart-empty">
+        <div>
+          <div style="font-size:28px;font-weight:800;margin-bottom:8px">
+            ${fmt(history[0].weight,1)} kg
+          </div>
+
+          <div>
+            ${history[0].date}
+          </div>
+
+          <div style="margin-top:8px">
+            再记录一天，就可以看到体重变化曲线。
+          </div>
+        </div>
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  /*
+   * SVG 尺寸
+   */
+  const width = 900;
+  const height = 300;
+
+  const padding = {
+
+    left:55,
+    right:20,
+    top:25,
+    bottom:42
+
+  };
+
+
+  const chartWidth =
+    width -
+    padding.left -
+    padding.right;
+
+  const chartHeight =
+    height -
+    padding.top -
+    padding.bottom;
+
+
+  /*
+   * 体重范围
+   */
+  const weights =
+    history.map(
+      item => Number(item.weight)
+    );
+
+
+  const target =
+    Number($("target").value);
+
+
+  let minWeight =
+    Math.min(...weights);
+
+  let maxWeight =
+    Math.max(...weights);
+
+
+  /*
+   * 把目标体重也纳入 Y 轴范围
+   */
+  if(Number.isFinite(target)){
+
+    minWeight =
+      Math.min(minWeight,target);
+
+    maxWeight =
+      Math.max(maxWeight,target);
+
+  }
+
+
+  /*
+   * 给上下留一点空间
+   */
+  const range =
+    Math.max(
+      maxWeight - minWeight,
+      2
+    );
+
+  minWeight -= range * 0.15;
+  maxWeight += range * 0.15;
+
+
+  /*
+   * 日期范围
+   */
+  const startDate =
+    new Date(history[0].date);
+
+  const endDate =
+    new Date(
+      history[history.length-1].date
+    );
+
+
+  const totalTime =
+    Math.max(
+      endDate - startDate,
+      1
+    );
+
+
+  /*
+   * X 坐标
+   */
+  function xPosition(date){
+
+    const d =
+      new Date(date);
+
+    const ratio =
+      (d - startDate) /
+      totalTime;
+
+    return (
+      padding.left +
+      ratio * chartWidth
+    );
+
+  }
+
+
+  /*
+   * Y 坐标
+   */
+  function yPosition(weight){
+
+    const ratio =
+      (maxWeight-weight) /
+      (maxWeight-minWeight);
+
+    return (
+      padding.top +
+      ratio * chartHeight
+    );
+
+  }
+
+
+  /*
+   * 生成曲线路径
+   */
+  const points =
+    history.map(
+      item => ({
+        x:xPosition(item.date),
+        y:yPosition(Number(item.weight)),
+        weight:Number(item.weight),
+        date:item.date
+      })
+    );
+
+
+  let path = "";
+
+  points.forEach(
+    (point,index) => {
+
+      if(index === 0){
+
+        path +=
+          `M ${point.x} ${point.y}`;
+
+      }else{
+
+        path +=
+          ` L ${point.x} ${point.y}`;
+
+      }
+
+    }
+  );
+
+
+  /*
+   * Y 轴刻度
+   */
+  const yTicks = 5;
+
+  let yGrid = "";
+
+  for(let i=0;i<=yTicks;i++){
+
+    const ratio =
+      i / yTicks;
+
+    const y =
+      padding.top +
+      ratio * chartHeight;
+
+    const value =
+      maxWeight -
+      ratio * (maxWeight-minWeight);
+
+
+    yGrid += `
+
+      <line
+        x1="${padding.left}"
+        y1="${y}"
+        x2="${width-padding.right}"
+        y2="${y}"
+        class="chart-grid"
+      />
+
+      <text
+        x="${padding.left-10}"
+        y="${y+4}"
+        text-anchor="end"
+        class="chart-axis"
+      >
+        ${value.toFixed(1)}
+      </text>
+
+    `;
+
+  }
+
+
+  /*
+   * X 轴日期标签
+   */
+  let xLabels = "";
+
+  const labelCount =
+    Math.min(history.length,5);
+
+
+  for(let i=0;i<labelCount;i++){
+
+    const index =
+      Math.round(
+        i*(history.length-1)/
+        (labelCount-1)
+      );
+
+    const item =
+      history[index];
+
+    const x =
+      xPosition(item.date);
+
+
+    const shortDate =
+      item.date.slice(5);
+
+
+    xLabels += `
+
+      <text
+        x="${x}"
+        y="${height-12}"
+        text-anchor="middle"
+        class="chart-axis"
+      >
+        ${shortDate}
+      </text>
+
+    `;
+
+  }
+
+
+  /*
+   * 目标体重线
+   */
+  let targetLine = "";
+
+  if(Number.isFinite(target)){
+
+    const targetY =
+      yPosition(target);
+
+    targetLine = `
+
+      <line
+        x1="${padding.left}"
+        y1="${targetY}"
+        x2="${width-padding.right}"
+        y2="${targetY}"
+        class="chart-target"
+      />
+
+      <text
+        x="${width-padding.right}"
+        y="${targetY-7}"
+        text-anchor="end"
+        class="chart-axis"
+      >
+        目标 ${target.toFixed(1)} kg
+      </text>
+
+    `;
+
+  }
+
+
+  /*
+   * 数据点
+   */
+  let dots = "";
+
+  points.forEach(point => {
+
+    dots += `
+
+      <circle
+        cx="${point.x}"
+        cy="${point.y}"
+        r="4"
+        class="chart-dot"
+      >
+
+        <title>
+          ${point.date}：${point.weight.toFixed(1)} kg
+        </title>
+
+      </circle>
+
+    `;
+
+  });
+
+
+  /*
+   * SVG
+   */
+  container.innerHTML = `
+
+    <div class="chart-wrap">
+
+      <svg
+        id="weightChart"
+        viewBox="0 0 ${width} ${height}"
+        preserveAspectRatio="none"
+      >
+
+        ${yGrid}
+
+        ${targetLine}
+
+        <path
+          d="${path}"
+          class="chart-line"
+        />
+
+        ${dots}
+
+        ${xLabels}
+
+      </svg>
+
+    </div>
+
+    <div class="chart-legend">
+
+      <div class="legend-item">
+
+        <span class="legend-line"></span>
+
+        实际体重
+
+      </div>
+
+      <div class="legend-item">
+
+        <span class="legend-target"></span>
+
+        目标体重
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   计算
+   ========================================================= */
+
+function calc(){
+
+  const sex =
+    $("sex").value;
+
+  const age =
+    n("age");
+
+  const h =
+    n("height");
+
+  const start =
+    n("start");
+
+  const cur =
+    n("current");
+
+  const target =
+    n("target");
+
+  const waist =
+    n("waist");
+
+  const act =
+    n("activity");
+
+
+  if(!(h>0 && start>0 && cur>0 && target>0))
+    return;
+
+
+  const hm =
+    h/100;
+
+
+  const bmi =
+    x => x/(hm*hm);
+
+
+  let p =
+    (start-cur)/
+    (start-target);
+
+
+  p =
+    Math.max(
+      0,
+      Math.min(1,p)
+    );
+
+
+  $("progress").textContent =
+    fmt(p*100,1)+"%";
+
+
+  $("fill").style.width =
+    (p*100)+"%";
+
+
+  $("remaining").textContent =
+
+    cur>target
+
+      ? `还差 ${fmt(cur-target,1)} kg`
+
+      : cur===target
+
+        ? "已达到目标"
+
+        : "超过目标 "+
+          fmt(target-cur,1)+
+          " kg";
+
+
+  $("s1").textContent =
+    fmt(start,1)+" kg";
+
+
+  $("s2").textContent =
+    fmt(start-cur,1)+" kg";
+
+
+  $("s3").textContent =
+    fmt(target,1)+" kg";
+
+
+  $("bmiNow").textContent =
+    fmt(bmi(cur),1);
+
+
+  $("bmiText").textContent =
+
+    `起始 ${fmt(bmi(start),1)} → `+
+    `当前 ${fmt(bmi(cur),1)} → `+
+    `目标 ${fmt(bmi(target),1)}`;
+
+
+  const loss =
+    (start-cur)/start*100;
+
+
+  const targetLoss =
+    (start-target)/start*100;
+
+
+  $("lossPct").textContent =
+    fmt(loss,1)+"%";
+
+
+  $("lossText").textContent =
+    `距离目标共需要下降 ${fmt(targetLoss,1)}%`;
+
+
+  $("range").textContent =
+
+    fmt(18.5*hm*hm,1)+
+    "–"+
+    fmt(24.9*hm*hm,1)+
+    " kg";
+
+
+  if(age>0){
+
+    const bmr =
+
+      sex==="male"
+
+        ? 10*cur+
+          6.25*h-
+          5*age+
+          5
+
+        : 10*cur+
+          6.25*h-
+          5*age-
+          161;
+
+
+    const targetBmr =
+
+      sex==="male"
+
+        ? 10*target+
+          6.25*h-
+          5*age+
+          5
+
+        : 10*target+
+          6.25*h-
+          5*age-
+          161;
+
+
+    $("bmr").textContent =
+
+      Math.round(bmr)
+        .toLocaleString()+
+      " kcal/天";
+
+
+    $("bmrText").textContent =
+
+      `目标体重时约 ${
+        Math.round(targetBmr)
+          .toLocaleString()
+      } kcal/天`;
+
+
+    $("tdee").textContent =
+
+      Math.round(bmr*act)
+        .toLocaleString()+
+      " kcal/天";
+
+  }
+
+
+  if(waist>0){
+
+    const r =
+      waist/h;
+
+
+    $("wht").textContent =
+      fmt(r,2);
+
+
+    $("whtText").textContent =
+
+      `${waist} cm ÷ ${h} cm = ${fmt(r,2)}`;
+
+  }else{
+
+    $("wht").textContent =
+      "—";
+
+
+    $("whtText").textContent =
+      "输入腰围后计算：腰围 ÷ 身高。";
+
+  }
+
+}
+
+
+/* =========================================================
+   初始化
+   ========================================================= */
+
+
+/*
+ * 1. 恢复用户之前输入的数据
+ */
+loadData();
+
+
+/*
+ * 2. 计算指标
+ */
 calc();
+
+
+/*
+ * 3. 清理超过一年的历史记录
+ *
+ * 即使用户今天没有修改体重，
+ * 打开页面时也会执行一次清理。
+ */
+function cleanOldHistory(){
+
+  let history =
+    getHistory();
+
+
+  const cutoff =
+    new Date();
+
+  cutoff.setDate(
+    cutoff.getDate()-365
+  );
+
+
+  const cutoffString =
+    `${cutoff.getFullYear()}-`+
+    `${String(cutoff.getMonth()+1).padStart(2,"0")}-`+
+    `${String(cutoff.getDate()).padStart(2,"0")}`;
+
+
+  history =
+    history.filter(
+      item => item.date >= cutoffString
+    );
+
+
+  saveHistory(history);
+
+}
+
+
+/*
+ * 清理旧数据
+ */
+cleanOldHistory();
+
+
+/*
+ * 4. 显示历史曲线
+ */
+renderChart();
+
+
+/* =========================================================
+   用户修改数据
+   ========================================================= */
+
+document
+  .querySelectorAll("input,select")
+  .forEach(element => {
+
+    element.addEventListener(
+      "input",
+      () => {
+
+        /*
+         * 重新计算
+         */
+        calc();
+
+
+        /*
+         * 保存当前输入
+         */
+        saveData();
+
+
+        /*
+         * 如果当前体重有效，
+         * 记录当天体重
+         */
+        if(
+          Number.isFinite(n("current")) &&
+          n("current") > 0
+        ){
+
+          recordWeight();
+
+        }
+
+
+        /*
+         * 更新曲线
+         */
+        renderChart();
+
+      }
+    );
+
+  });
+
 </script>
+
 </body>
 </html>
